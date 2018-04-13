@@ -188,6 +188,20 @@
 |  CAN_NOT_EVALUATE     |   不可评价 |
 |  WAIT_TO_EVALUATE     |   待评价 |
 |  EVALUATED     |   已评价 |
+
+- 	  rentType(订单详情租赁类型)
+
+|  key      |    Value | 
+| :-------- | :--------:| 
+|  COMMON_RENT|   正常租赁 |
+|  CONTINUE_RENT|   续租 |
+
+- 	  type(物流类型)
+
+|  key      |    Value | 
+| :-------- | :--------:| 
+|  RECEIVE_COMMODITY|   收件 |
+|  RETURN_COMMODITY|   还件 |
   
   
   
@@ -434,7 +448,7 @@
 }
   // and so on
 ```
-  ## 订单
+## 订单
   
   
 ### 批量查询
@@ -530,6 +544,125 @@
 
       }
     ]
+  }
+}
+```
+
+### 单个查询
+  
+  
+- 请求方法：`GET`
+- URL：`/users/:id`
+- URL参数
+  
+| 参数名 | 类型 | 是否必须 | 描述 | 示例 |
+| ---    | --- | --- | --- | --- |
+| id | Number | 是 | 用户id | 1 | 
+
+- 返回示例：
+```javascript
+{
+  "code": 200,
+  "message": "OK",
+  "data": {
+	"id": Number 订单id,
+	"purchaseNo": String 订单编号,
+	"statusName": String 订单状态中文,
+    "status":Enum-String 订单状态
+    "rentTypeName": String 租赁类型中文,
+    "rentType": Enum-String 租赁类型,
+    "rentCycleNumber": Number 租赁周期数,
+	"serialNo": String 序列号(支付用),
+    "discountRate": Number 折扣率,
+    "winIntegral": Number 赢得的积分,
+    "rentMethodName": String 租赁方式中文,
+    "rentMethod": Enum-String 租赁方式,
+    "rentCycleName": String 租赁周期中文,
+    "rentCycle": Enum-String 租赁周期 ,
+    "evaluateStatusName": String 评价状态中文,
+    "payTotalAmount": Number 支付总金额,
+    "discountAmount": Number 抵扣总金额,
+    "payDeposit": Number 支付押金金额,
+    "rentPrice": Number 租赁价格,
+    "originalRentAmount": Number 原始租金,
+    "payRentAmount": Number 支付租赁金额,
+    "freezedQuota": Number 冻结额度,
+    "usedIntegral": Number 使用的积分,
+    "integralDeductionAmount": Number 积分抵扣金额,
+    "commodityId": Number 商品id,
+    "commodityNo": String 商品货号,
+    "commodityColor": String 商品颜色,
+    "commoditySize": String 商品尺寸,
+    "commodityCwmsCode": String 商品cwmscode,
+    "commodityName":String 商品名称
+    "userId": Number 用户id,
+    "userRealName": String 用户真实姓名,
+    "evaluateStatus": Enum-String 评价状态枚举,
+    "createDatetimeStr": String 订单创建时间中文 ,
+    "createDatetime": Date-Number 订单创建时间,
+    "rentStartDatetime": Date-Number 租赁开始时间,
+    "rentEndDatetime": Date-Number 租赁结束时间,
+    "rentStartDatetimeStr": String 租赁开始时间中文,
+    "rentEndDatetimeStr": String 租赁结束时间,
+    "appointmentReceiveStartDatetimeStr": String 预约收货开始时间中文,
+    "appointmentReceiveEndDatetimeStr": String 预约收货结束时间中文,
+    "appointmentReceiveStartDatetime": Date-Number 预约收货开始时间,
+    "appointmentReceiveEndDatetime": Date-Number 预约收货结束时间,
+    "receiveAreaMostSuperiorCommonAreaNameId":Number 一级取货地址id,
+    "receiveAreaMostSuperiorCommonAreaName": String 一级取货地址中文,
+    "receiveAreaParentCommonAreaNameId": Number 二级取货地址id,
+    "receiveAreaParentCommonAreaName": String 二级取货地址中文,
+    "receiveAreaCommonAreaNameId": Number 三级取货地址id,
+    "receiveAreaCommonAreaName": String 三级取货地址中文,
+    "receiveMobile": String 取货人手机,
+    "receiveName": String 取货人姓名,
+    "receiveAddress": String 取货人地址,
+    "receiveAreaId": Number 取货区域id,
+    "appointmentReturnStartDatetimeStr": String 预约还货开始时间中文,
+    "appointmentReturnEndDatetimeStr": String 预约还货结束时间中文,
+    "appointmentReturnStartDatetime": Date-Number 预约还货开始时间,
+    "appointmentReturnEndDatetime": Date-Number 预约还货结束时间,
+    "returnAreaMostSuperiorCommonAreaNameId": Number 一级还货地址id,
+    "returnAreaMostSuperiorCommonAreaName": String 一级还货地址中文,
+    "returnAreaParentCommonAreaNameId": Number 二级还货地址id,
+    "returnAreaParentCommonAreaName": String 二级还货地址中文,
+    "returnAreaCommonAreaNameId": Number 三级还货地址id,
+    "returnAreaCommonAreaName": String 三级还货地址中文,
+    "returnMobile": String 还货人手机,
+    "returnName": String 还货人姓名,
+    "returnAddress": String 还货人地址,
+    "returnAreaId": Number 还货区域id,
+    "activeFlag": Enum-String 数据状态,
+    "version": Number 版本id,
+    "purchaseLogisticsList": [//订单物流列表
+		{
+		"id": Number 订单物流id,
+        "createDatetime": Date-Number 订单物流创建时间,
+        "createDatetimeStr": String 订单物流创建时间中文,
+        "purchaseId": Number 订单id,
+        "type": Enum-String 物流类型枚举,
+        "typeName": String 物流类型,
+        "description": String 描述,
+        "activeFlag": Enum-String 物流数据状态
+        "version": Number 物流数据版本号,
+      }
+	],
+    "purchaseCompensationList": [],//订单赔付(留字段)
+    "purchaseOperateList": [//订单操作列表
+      {
+	    "id": Number 订单操作表id,
+        "createDatetime": Date-Number 操作创建时间,
+        "createDatetimeStr": String 操作创建时间中文,
+        "purchaseId": Number 订单id,
+        "operateTypeName": String 操作类型中文,
+        "operateType": Enum-String 操作类型枚举,
+        "statusName": String 操作时的订单状态,
+        "status": Enum-String 操作时订单状态枚举,
+        "activeFlag": Enuum-String 订单操作数据状态,
+        "version": Number 订单操作版本,
+      }
+    ],
+   
   }
 }
 ```
