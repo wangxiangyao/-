@@ -108,6 +108,15 @@
 |  IN_AUTH     |   认证中 | 
 |  AUTH_SUCCESS      |    认证成功 | 
 |  AUTH_FAIL     |   认证失败|
+
+- appType(用户App类型状态)
+  
+|  key      |    Value | 
+| :-------- | :--------:| 
+|  H5| H5 |  
+|  IOS|   IOS | 
+|  ANDROID|  ANDROID   | 
+|  WECHAT_MINI_PROGRAM|   WECHAT_MINI_PROGRAM|
   
 - marketingPeriodCardCategoryType(包期卡类别)
   
@@ -225,6 +234,7 @@
 |  key      |    Value | 
 | :-------- | :--------:| 
 | 200		|ok|
+| 403| 账号未登录|
 | 500	|	系统异常 |
 |1001	|账号或者密码错误|
 |1002	|查询参数错误|
@@ -301,7 +311,7 @@
 | ---    | --- | --- | --- | --- |
 | page | Number | 是 | 请求页码 | 10 请求第10页 |
 | limit | Number | 是 | 每页数据量 | 10 |
-| id | Number | 否 | 用户id | 1 |
+| userId | Number | 否 | 用户id | 1 |
 | nickName | String | 否 | 用户昵称 | 布雷布雷 |
 | sex | Enum-String | 否 | 性别：MALE(男)，FEMALE(女) | MALE |
 | registerTime | [DateTime-number, DateTime-number] | 否 | 注册时间区间 [开始，结束] 0表示不限制 | [0, 1523242919345], [1523242919345, 0] |
@@ -352,100 +362,108 @@
 - 返回示例：
 ```javascript
 {
-  code: 200,
-  message: 'ok',
-  data: {
-    id: Number 用户id
-    registerTime: DateTime-Number 注册时间
-    nickName: String 昵称 
-    sex: Enum-String 性别 
-    idCardNo: String 身份证 
-    mobile：String 手机号 
-    type：Enum-String 用户类型
-    realNameAuthStatus: Enum-String 用户是否实名认证
-    realName：String 真实姓名
-    shareOriginChannel: String 通过哪个渠道进入
-  
-    // 详细信息？？？
-    addressList: {
-      count
-      list: [
-		{
-        id: Number 地址id,
-        userId: Number 地址所属用户id
-        defaultFlag: Enum-String: "NO" "YES"
-        name：String 收件人姓名
-        mobile：String 收件人手机号
-  
-        mostSuperiorCommonAreaName：String 一级地址
-        parentCommonAreaName：String 二级地址
-        commonAreaName: String 三级地址
-  
-        mostSuperiorCommonAreaNameId：Number 一级地址id
-        parentCommonAreaNameId：Number 二级地址id
-        commonAreaNameId：Number 三级地址id
-  
-        address： String 街道地址
-		}
+  "code": 200,
+  "message": "OK",
+  "data": {
+		"id": Number 用户id,
+		"realName": String 用户真实姓名,
+		"nickName": String 用户昵称,
+		"sex": Enum-String 用户性别枚举,
+		"sexName": String 性别中文,
+		"idCardNo": String 用户身份证id,
+	    "mobile": String 用户电话,
+	    "type": Enum-String 用户类型,
+	    "typeName": String 用户类型中文,
+	    "realNameAuthStatus": Enum-String 用户实认证枚举,
+	    "realNameAuthStatusName": String 用户实名认证中文,
+	    "registerTime": Date-String 注册时间,
+	    "registerTimeStr": String 注册时间中文,
+	    "appType": Enum-String 用户APP类型枚举,
+	    "activityChannel":String  活动渠道,
+	    "shareOriginChannel": String 分享来源渠道
+	    "addressList": {//用户地址列表
+			"count": 2,
+		    "list": [
+			{
+				"id": Number 用户地址id,
+				"userId": Numebr 用户id,
+				"defaultFlag": String 是否默认地址,
+				"mostSuperiorCommonAreaNameId": Number 一级地址id,
+				"mostSuperiorCommonAreaName": String 一级地址中文,
+				"parentCommonAreaNameId": Number 二级地址id,
+				"parentCommonAreaName": String 二级地中文,
+				"commonAreaNameId": Number 三级地址id,
+				"commonAreaName": String 三级地址中文,
+		        "address": String 具体地址,
+			    "name": String 收货人姓名,
+		        "mobile": String 收货人手机,   
+        },
       ]
     },
-    periodCardList: {
-      count
-      list: [
-	  {
-        id: Number 包期卡id
-        userId: Number 包期卡所属用户id
-        version: Number 解决并发修改问题
-        serialNo: String 包期卡序列号 
-        description: 包期卡描述
-        marketingPeriodCardCategoryType: Enum-String: "SIX_STAR" 包期卡的类型的英文
-        marketingPeriodCardCategoryId: Number 包期卡类型的id
-  
-        userPayId: Number 支付包期卡的支付凭证id
-        transferFromUserId: Number 转增人
-        origin: Enum-String: "BUY_BY_USER" 没有列全
-        originName: String 来源中文
-        payAmount: Number 支付金额
-        payChannel: Enum-String "WEIXIN" 支付方式英文 没有列全
-        payChannelName: Enum-String: "微信", ""  支付渠道
-        bussinessType: Enum-String "PERIOD_CARD_NEW_PAY" 商业类型英文
-        businessTypeName: String 商业类型
-  
-        status： Enum-String 状态 没有列全
-        statusName: String 开启状态
-  
-        freezedQuota: Number 冻结金额
-        usableQuota: Number 可用额度
-        totalQuata: Number 总额度
-  
-        开发时间
-        激活时间
-        到期时间
-		}
+	    "periodCardList": {//用户包期卡列表
+		    "count": 26,
+		    "list": [
+		    {
+			  "id": Number 包期卡id,
+			  "userId": Number 用户id,
+			  "status": Enum-String 包期卡开通状态枚举,
+			  "statusName": String 包期卡开通状态中文,
+			  "serialNo": String 包期卡序列化,
+			  "marketingPeriodCardCategoryId": Number 包期卡类别id,
+			  "marketingPeriodCardCategoryType": Enum-String 包期卡类别枚举,
+			  "marketingPeriodCardCategoryName": String 包期卡类别中文,
+			  "originName": String 包期卡来源中文
+			  "origin": Enum-String 包期卡来源枚举,
+			  "userPayId": Number 用户支付id,
+			  "businessType": Enum-String 支付时的业务类型,
+			  "businessTypeName": String 支付时业务类型中文,
+			  "payAmount": Number 支付总价,
+			  "payChannel": Enum-String 支付渠道,
+	          "payChannelName": String 支付渠道中文,
+	          "totalQuota": Number 总计额度,
+	          "freezedQuota": Number 冻结额度,
+	          "usableQuota": Number 可使用额度,
+	          "creatDateTime": Date-Number 包期卡创建时间,
+	          "createDateTimeStr": String 包期卡创建时间中文,
+	          "startDateTime": Date-Number 包期卡开通时间,
+	          "startDateTimeStr": String 包期卡开通时间中文,
+	          "endDateTime": Date-Number 包期卡结束时间,
+	          "endDateTimeStr": String 包期卡结束时间中文,
+	          "activeFlag": Enum-String 数据状态,
+	          "version": Number 版本号,
+	    
+        },
+       
       ]
     },
-    purchaseList: {
-      count
-      list: [{
-        "rentCycleName": String,租赁周期中文
-        "freezedQuota": Number,冻结额度
-        "rentMethodName": String,租赁方式中文
-        "payTotalAmount": Number,支付总金额
-        "rentMethod": Enum-String ,租赁方式
-        "commodityId": Number, 商品id
-        "payDeposit": Number,支付押金
-        "userId": Number,用户id
-        "payRentAmount": Number,支付租金
-        "rentCycle": Enum-String,租赁周期
-        "purchaseNo": String,订单编号
-        "id": Number,订单id
-        "rentPrice": Number,租赁价格
-        "usedIntegral": Number,使用积分
-        "commodityName": String 商品名称
-	  }]
-    }
+	    "purchaseList": {//订单列表
+		    "count": 222,
+		    "list": [
+	        {
+			      "id": Number 订单id,
+			      "userId": Number 用户id,
+			      "purchaseNo": String 订单号,
+			      "rentCycle": Enum-String 最小租赁周期,
+		          "rentCycleName": String 最小租赁周期中文,
+		          "rentMethod": Enum-String 租赁方式枚举,
+		          "rentMethodName": String 租赁方式中文,
+		          "payTotalAmount": Number 支付总价,
+		          "payDeposit": Number 支付押金,
+		          "rentPrice": Number 租金价格,
+		          "payRentAmount":Number 支付租金,
+		          "freezedQuota": Number 冻结额度,
+		          "usedIntegral": Number 使用积分,
+		          "commodityId": Number 商品id,
+		          "commodityName": String 商品名称
+		              
+        },
+        
+      ]
+    },
+
   }
 }
+
   // and so on
 ```
 ## 订单
