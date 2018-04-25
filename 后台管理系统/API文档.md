@@ -32,6 +32,7 @@
 		* [单个查询](#用户包期卡单个查询 )
 	* [商品](#商品 )
 		* [批量查询](#商品批量查询 )
+		* [单个查询](#商品单个查询 )
 		
   
 ## 更新说明
@@ -972,13 +973,19 @@
         "commodityBrandNameEn": String 商品品牌英文,
         "commodityBrandNameCn": String 商品品牌中文,
         "commodityBrandLabelIds": String 商品品牌标签id列表,
-        
         "publishFlag": Enum-String 上架标识,
         "recommendDescription": String 推荐描述,
         "introduction": String 商品介绍,
-        "src": String 资源路径,
+		"introductionImageSrcList":[//商品介绍图片列表
+			//String 商品介绍,
+		]     
+        "src": [//资源路径列表
+			String 资源路径,
+			]
          "commodityBrandIntroduce": String 商品品牌简介,
-        "commodityBrandSrc": String 商品品牌资源路径,
+        "commodityBrandSrc":[//商品品牌资源路径列表
+			String 商品品牌资源路径,
+			]
         "commodityBrandLogoSrc": String 商品品牌logo资源路径,
         "activeFlag": "YES",
         "version": 1,
@@ -1000,5 +1007,129 @@
       }
     ]
   }
+}
+```
+
+### 商品单个查询
+- 请求方法： `GET`
+- URL：`/commodity/:id`
+- query参数：
+
+| 参数名 | 类型 | 是否必须 | 描述 | 示例 |
+| ---    | --- | --- | --- | --- |
+| id | Number| 是 | 商品id | 221 |
+
+- 返回示例：
+```javascript
+	{
+  "code": 200,
+  "message": "OK",
+  "data":  {
+	    "id": Number 商品id533,
+	    "commodityInfoId": Number 商品信息id,
+        "no": String 商品货号,
+        "name": String 商品名称,
+        "series": String 系列,
+        "model": String 型号,
+        "color": String yanse,
+        "commodityCategoryId": Number 商品类别id,
+        "commodityCategoryCode": String 商品类别code,
+        "commodityCategoryName": Number 商品类型名称,
+        "marketPrice": Number 市场价,
+        "rentPrice": Number 租赁价,
+        "freezedQuota": Number 冻结额度,
+        "rentCycle": Enum-String 租赁周期枚举,
+        "rentCycleName": String 租赁周期中文,
+        "commodityBrandId": Number 商品品牌id,
+        "commodityBrandCountry": String 商品品牌国家,
+        "commodityBrandNameEn": String 商品品牌英文,
+        "commodityBrandNameCn": String 商品品牌中文,
+        "commodityBrandLabelIds": String 商品品牌标签id列表,
+        "publishFlag": Enum-String 上架标识,
+        "recommendDescription": String 推荐描述,
+        "introduction": String 商品介绍,
+		"introductionImageSrcList":[//商品介绍图片列表
+			//String 商品介绍,
+		]     
+        "src": [//资源路径列表
+			String 资源路径,
+			]
+         "commodityBrandIntroduce": String 商品品牌简介,
+        "commodityBrandSrc":[//商品品牌资源路径列表
+			String 商品品牌资源路径,
+			]
+        "commodityBrandLogoSrc": String 商品品牌logo资源路径,
+        "activeFlag": "YES",
+        "version": 1,
+        "totalDiffQuantity": Number 总剩余数量,
+        "sizeCwmsCode": {//商品不同规格的cwmscode
+          "NM": "000215"
+        },
+        "sizeDiffQuantity": {//商品不同规格的剩余数量
+          "NM": 1
+        },
+        "commodityLabelList": [//商品标签列表
+          {
+            "code": String 标签的code,
+            "name": String 标签的名称,
+            "codeName":String 标签的code中文,
+            "id": Number 标签的id
+          }
+       ]
+   }
+}
+```
+## 商品品牌
+  
+  
+### 商品品牌批量查询
+- 请求方法： `GET`
+- URL：`/commodityBrand`
+- query参数：
+
+| 参数名 | 类型 | 是否必须 | 描述 | 示例 |
+| ---    | --- | --- | --- | --- |
+
+- 返回示例：
+```javascript
+	{
+  "code": 200,
+  "message": "OK",
+  "data": [
+    
+    {
+	  "id": Number 品牌id,
+      "country": String 品牌国家,
+      "nameCn": String 品牌中文名字,
+      "nameEn": String 品牌英文名字,
+      "logoSrc": String 品牌logo路径"/commodityBrand/Tod's/Tod's.png",
+      "src": [//品牌资源路径列表
+			String 品牌资源路径
+		],
+      "introduce": String 品牌简介,
+      
+      "labelIds":[//品牌标签id列表
+		String 品牌标签id,
+		]
+      "labelList": [//品牌标签详细
+        {
+          "code": String 标签code,
+          "name": String 标签名字,
+          "codeName": String 标签code名字,
+          "id": 标签code
+        },
+        
+      ],
+      "activeFlag": "YES",
+      "version": 1,
+      
+      
+      
+      
+      
+      
+      
+    }
+  ]
 }
 ```
