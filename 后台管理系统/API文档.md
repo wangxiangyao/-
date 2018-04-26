@@ -33,6 +33,8 @@
 	* [商品](#商品 )
 		* [批量查询](#商品批量查询 )
 		* [单个查询](#商品单个查询 )
+	* [系统菜单](#系统菜单 )
+		* [根据系统用户id查询用户拥有的菜单](#根据系统用户id查询用户拥有的菜单 )
 		
   
 ## 更新说明
@@ -281,10 +283,12 @@
 |  key      |    Value | 
 | :-------- | :--------:| 
 | 200		|ok|
-| 403| 账号未登录|
+| 401| 账号未登录|
+| 401| 账号没有权限|
 | 500	|	系统异常 |
 |1001	|账号或者密码错误|
 |1002	|查询参数错误|
+|1003	|查询CWMS错误|
   
   
 ### 通用错误状态返回说明
@@ -556,6 +560,7 @@
 	  "commodityColor": String 商品颜色,
 	  "commoditySize": String 商品尺寸
 	  "rentCycle": String, 租赁周期中文
+	  "rentCycleNumber": Number 租赁周期数,
 	  "userId": Number 用户id,
 	  "userRealName": String 用户真实姓
 	  "evaluateStatusName": String 评价状态中文,
@@ -1130,6 +1135,46 @@
       
       
     }
+  ]
+}
+```
+
+
+## 系统菜单
+### 根据系统用户id查询用户拥有的菜单
+- 请求方法： `GET`
+- URL：`/sysuser/menu/:id`
+- query参数：
+
+| 参数名 | 类型 | 是否必须 | 描述 | 示例 |
+| ---    | --- | --- | --- | --- |
+| id | Number| 是 | 系统用户id | 1|
+
+- 返回示例：
+```javascript
+{
+  "code": 200,
+  "message": "OK",
+  "data": [
+    {//一级菜单
+	  "name": String 菜单名称,
+      "id": Number 菜单id,
+      "url": String 菜单url,
+      "children": [//二级菜单列表
+        {
+	      "name": String 菜单名称,
+	      "id": Number 菜单id,
+	      "url": String 菜单url,
+          "children": [//三级菜单
+            {
+              "name": String 菜单名称,
+		      "id": Number 菜单id,
+		      "url": String 菜单url,
+            }
+          ],
+        },
+      ],
+    },
   ]
 }
 ```
