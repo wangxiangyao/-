@@ -402,7 +402,13 @@
 		"wechatOpenOpenId":String 微信开放平台openid
         "wechatAuthDatetime": Date-Number 微信认证时间,
 		"wechatAuthDatetimeStr": String 微信认证时间中文,
-	    
+		"provinceName": String 用户默认地址省,
+	    "cityName": String 用户默认地址市,
+	    "areaName": String 用户默认地址区,
+	    "address": String 用户默认地址,
+	    "provinceId": Number 用户默认地址省id,
+	    "cityId": Number 用户默认地址市id,
+	    "areaId": Number 用户默认地址区id,
 		"totalDeposit": Number 总押金,
 		"usableDeposit":Number 可用押金,
 		"freezedDeposit":Number 冻结押金
@@ -475,7 +481,13 @@
 		"wechatOpenOpenId":String 微信开放平台openid
         "wechatAuthDatetime": Date-Number 微信认证时间,
 		"wechatAuthDatetimeStr": String 微信认证时间中文,
-	    
+	    "provinceName": String 用户默认地址省,
+	    "cityName": String 用户默认地址市,
+	    "areaName": String 用户默认地址区,
+	    "address": String 用户默认地址,
+	    "provinceId": Number 用户默认地址省id,
+	    "cityId": Number 用户默认地址市id,
+	    "areaId": Number 用户默认地址区id,
 		"totalDeposit": Number 总押金,
 		"usableDeposit":Number 可用押金,
 		"freezedDeposit":Number 冻结押金
