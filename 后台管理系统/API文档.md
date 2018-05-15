@@ -1186,16 +1186,19 @@
 	  "name": String 菜单名称,
       "id": Number 菜单id,
       "url": String 菜单url,
+	  "code":String 菜单code,      
       "children": [//二级菜单列表
         {
 	      "name": String 菜单名称,
 	      "id": Number 菜单id,
 	      "url": String 菜单url,
+	      "code":String 菜单code,
           "children": [//三级菜单
             {
               "name": String 菜单名称,
 		      "id": Number 菜单id,
 		      "url": String 菜单url,
+		      "code":String 菜单code,
             }
           ],
         },
