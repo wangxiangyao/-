@@ -532,6 +532,7 @@
 | ---    | --- | --- | --- | --- |
 | page | Number | 是 | 请求页码 | 10 请求第10页 |
 | limit | Number | 是 | 每页数据量 | 10 |
+|purchaseId|String|否|订单id|245|
 |purchaseNo|String|否|订单编号|201803131632450617185|
 |createTime|[DateTime-number, DateTime-number]|否|下单时间|[0,15379687546]|
 |rentTime|[DateTime-number, DateTime-number]|否|租赁开始结束时间|[0,15379687546]|
@@ -614,7 +615,20 @@
 	  "appointmentReturnEndDatetime": DateTime-String 还货结束时间
 	  "createDatetimeStr": String 订单创建时间,
 	  "createDatetime": DateTime-String 订单创建时间
-
+	  "purchaseDetailList": [
+		  {
+            "rentTypeName": String 租赁类型,
+            "payedTotalAmount": Number 支付金额,
+            "payChannelName": String 支付渠道中文,
+            "businessTypeName": String 支付业务行为中文,
+            "rentType": Enum-String 租赁类型枚举,
+            "payTradeNo": String 支付流水号,
+            "payChannel": Enum-String 支付渠道枚举,
+            "businessType": Enum-String 支付业务行为枚举,
+            "rentCycleNumber": Number 租赁周期数,
+            "serialNo": String 序列号
+          }
+        ],
       }
     ]
   }
