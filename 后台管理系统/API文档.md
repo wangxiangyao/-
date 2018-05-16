@@ -35,6 +35,8 @@
 		* [单个查询](#商品单个查询 )
 	* [系统菜单](#系统菜单 )
 		* [根据系统用户id查询用户拥有的菜单](#根据系统用户id查询用户拥有的菜单 )
+	* [商品类别](#商品类别 )
+		* [查询所有商品类别](#查询所有商品类别 )
 		
   
 ## 更新说明
@@ -402,7 +404,13 @@
 		"wechatOpenOpenId":String 微信开放平台openid
         "wechatAuthDatetime": Date-Number 微信认证时间,
 		"wechatAuthDatetimeStr": String 微信认证时间中文,
-	    
+		"provinceName": String 用户默认地址省,
+	    "cityName": String 用户默认地址市,
+	    "areaName": String 用户默认地址区,
+	    "address": String 用户默认地址,
+	    "provinceId": Number 用户默认地址省id,
+	    "cityId": Number 用户默认地址市id,
+	    "areaId": Number 用户默认地址区id,
 		"totalDeposit": Number 总押金,
 		"usableDeposit":Number 可用押金,
 		"freezedDeposit":Number 冻结押金
@@ -476,7 +484,13 @@
 		"wechatOpenOpenId":String 微信开放平台openid
         "wechatAuthDatetime": Date-Number 微信认证时间,
 		"wechatAuthDatetimeStr": String 微信认证时间中文,
-	    
+	    "provinceName": String 用户默认地址省,
+	    "cityName": String 用户默认地址市,
+	    "areaName": String 用户默认地址区,
+	    "address": String 用户默认地址,
+	    "provinceId": Number 用户默认地址省id,
+	    "cityId": Number 用户默认地址市id,
+	    "areaId": Number 用户默认地址区id,
 		"totalDeposit": Number 总押金,
 		"usableDeposit":Number 可用押金,
 		"freezedDeposit":Number 冻结押金
@@ -522,6 +536,7 @@
 | page | Number | 是 | 请求页码 | 10 请求第10页 |
 | limit | Number | 是 | 每页数据量 | 10 |
 |id|String|否|订单id|147|
+|purchaseId|String|否|订单id|245|
 |purchaseNo|String|否|订单编号|201803131632450617185|
 |createTime|[DateTime-number, DateTime-number]|否|下单时间|[0,15379687546]|
 |rentTime|[DateTime-number, DateTime-number]|否|租赁开始结束时间|[0,15379687546]|
@@ -604,7 +619,20 @@
 	  "appointmentReturnEndDatetime": DateTime-String 还货结束时间
 	  "createDatetimeStr": String 订单创建时间,
 	  "createDatetime": DateTime-String 订单创建时间
-
+	  "purchaseDetailList": [
+		  {
+            "rentTypeName": String 租赁类型,
+            "payedTotalAmount": Number 支付金额,
+            "payChannelName": String 支付渠道中文,
+            "businessTypeName": String 支付业务行为中文,
+            "rentType": Enum-String 租赁类型枚举,
+            "payTradeNo": String 支付流水号,
+            "payChannel": Enum-String 支付渠道枚举,
+            "businessType": Enum-String 支付业务行为枚举,
+            "rentCycleNumber": Number 租赁周期数,
+            "serialNo": String 序列号
+          }
+        ],
       }
     ]
   }
@@ -949,6 +977,11 @@
 | series| String | 否 | 系列 | Twist |
 | model| String | 否 | 型号 | 中 |
 | color| String | 否 | 颜色 | 黑色 |
+| commodityNo| String | 否 | 货号 | T000027 |
+| freezedQuota| String | 否 | 商品冻结额度(星级) | 1 |
+| rentPriceRange| String | 否 | 租赁价格区间 | 300,400 |
+| marketPriceRange| String | 否 | 市场价格区间 | 10000,20000 |
+| commodityCategoryId| String | 否 | 商品类别id | 1 |
 
 - 返回示例：
 ```javascript
@@ -1162,21 +1195,45 @@
 	  "name": String 菜单名称,
       "id": Number 菜单id,
       "url": String 菜单url,
+	  "code":String 菜单code,      
       "children": [//二级菜单列表
         {
 	      "name": String 菜单名称,
 	      "id": Number 菜单id,
 	      "url": String 菜单url,
+	      "code":String 菜单code,
           "children": [//三级菜单
             {
               "name": String 菜单名称,
 		      "id": Number 菜单id,
 		      "url": String 菜单url,
+		      "code":String 菜单code,
             }
           ],
         },
       ],
     },
+  ]
+}
+```
+
+## 商品类别
+### 查询所有商品类别
+- 请求方法： `GET`
+- URL：`/commodityCategory`
+- query参数：
+-  返回示例：
+```javascript
+{
+  "code": 200,
+  "message": "OK",
+  "data": [
+    {
+      "code": String 商品类别code,
+      "name": String 商品类别中文,
+      "id": String 商品类别id
+    },
+   
   ]
 }
 ```
