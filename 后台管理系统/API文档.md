@@ -35,6 +35,8 @@
 		* [单个查询](#商品单个查询 )
 	* [系统菜单](#系统菜单 )
 		* [根据系统用户id查询用户拥有的菜单](#根据系统用户id查询用户拥有的菜单 )
+	* [商品类别](#商品类别 )
+		* [查询所有商品类别](#查询所有商品类别 )
 		
   
 ## 更新说明
@@ -973,6 +975,11 @@
 | series| String | 否 | 系列 | Twist |
 | model| String | 否 | 型号 | 中 |
 | color| String | 否 | 颜色 | 黑色 |
+| commodityNo| String | 否 | 货号 | T000027 |
+| freezedQuota| String | 否 | 商品冻结额度(星级) | 1 |
+| rentPriceRange| String | 否 | 租赁价格区间 | 300,400 |
+| marketPriceRange| String | 否 | 市场价格区间 | 10000,20000 |
+| commodityCategoryId| String | 否 | 商品类别id | 1 |
 
 - 返回示例：
 ```javascript
@@ -1204,6 +1211,27 @@
         },
       ],
     },
+  ]
+}
+```
+
+## 商品类别
+### 查询所有商品类别
+- 请求方法： `GET`
+- URL：`/commodityCategory`
+- query参数：
+-  返回示例：
+```javascript
+{
+  "code": 200,
+  "message": "OK",
+  "data": [
+    {
+      "code": String 商品类别code,
+      "name": String 商品类别中文,
+      "id": String 商品类别id
+    },
+   
   ]
 }
 ```
