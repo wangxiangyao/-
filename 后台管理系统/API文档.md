@@ -467,7 +467,8 @@
 		"mobile": String 用户手机,
 		"headImage": String 用户头像url,
 		"appType": Enum-String 用户app类型,
-		"shareOriginChannel": String 分享来源渠道,
+    "shareOriginChannel": String 分享来源渠道,
+    "shareOriginUserId": String 分享人
 		"activityChannel": String 活动渠道,
 		"wechatOpenId":String 微信openID
 		"wechatUnionId": String 微信unionID,
@@ -520,6 +521,7 @@
 | ---    | --- | --- | --- | --- |
 | page | Number | 是 | 请求页码 | 10 请求第10页 |
 | limit | Number | 是 | 每页数据量 | 10 |
+|id|String|否|订单id|147|
 |purchaseNo|String|否|订单编号|201803131632450617185|
 |createTime|[DateTime-number, DateTime-number]|否|下单时间|[0,15379687546]|
 |rentTime|[DateTime-number, DateTime-number]|否|租赁开始结束时间|[0,15379687546]|
