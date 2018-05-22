@@ -349,6 +349,7 @@
   
 - 请求方法：`POST`
 - 
+
   
 ## 用户
   
@@ -475,8 +476,7 @@
 		"mobile": String 用户手机,
 		"headImage": String 用户头像url,
 		"appType": Enum-String 用户app类型,
-    "shareOriginChannel": String 分享来源渠道,
-    "shareOriginUserId": String 分享人
+		"shareOriginChannel": String 分享来源渠道,
 		"activityChannel": String 活动渠道,
 		"wechatOpenId":String 微信openID
 		"wechatUnionId": String 微信unionID,
@@ -523,6 +523,27 @@
 
   // and so on
 ```
+
+### 通过token获取用户信息
+  
+  
+- 请求方法：`GET`
+- URL：`/sysuser/findSysUserByToken`
+- URL参数
+  - 返回示例：
+```javascript
+	{
+	  "code": 200,
+	  "message": "OK",
+	  "data": {
+	    "realName": String 真实姓名,
+	    "roles": String 角色列表,
+	    "userId": String 用户id,
+	    "account": String 用户账号
+  }
+}
+ // and so on
+```
 ## 订单
   
   
@@ -535,7 +556,6 @@
 | ---    | --- | --- | --- | --- |
 | page | Number | 是 | 请求页码 | 10 请求第10页 |
 | limit | Number | 是 | 每页数据量 | 10 |
-|id|String|否|订单id|147|
 |purchaseId|String|否|订单id|245|
 |purchaseNo|String|否|订单编号|201803131632450617185|
 |createTime|[DateTime-number, DateTime-number]|否|下单时间|[0,15379687546]|
@@ -1235,5 +1255,63 @@
     },
    
   ]
+}
+```
+
+## 报表
+  
+  
+### 市场来源渠道报表
+- 请求方法： `GET`
+- URL：`/marketingReport`
+- query参数：
+
+| 参数名 | 类型 | 是否必须 | 描述 | 示例 |
+| ---    | --- | --- | --- | --- |
+| shareOriginChannel| String | 是 | 分享来源渠道 | ANGELA_MIKI |
+| timeRange| String | 是 | 1513008000000,1544630400000 | 统计时间区间 |
+
+-  返回示例：
+```javascript
+{
+  "code": 200,
+  "message": "OK",
+  "data": {
+    "hasPeriodCardUserCount": Number 持有包期卡用户总计,
+    "placePurchaseUserCount": Number 下过订单用户总计,
+    "userDateCountMap": {//通过该渠道每天注册的用户数据,key是日期,value是注册用户数量
+      "20171212": 18,
+      "20171213": 8,
+      "20171214": 2,
+      "20171215": 2,
+      "20171217": 21,
+      "20171218": 188,
+      "20171219": 49,
+      "20171220": 38,
+      "20171221": 45,
+      "20171222": 31,
+      "20171223": 20,
+      "20171224": 5,
+      "20171225": 1,
+      "20171226": 1,
+      "20171227": 1,
+      "20171228": 1,
+      "20180102": 2,
+      "20180104": 1,
+      "20180105": 5,
+      "20180108": 1,
+      "20180110": 2,
+      "20180111": 1,
+      "20180112": 2,
+      "20180113": 1,
+      "20180115": 1,
+      "20180116": 3,
+      "20180117": 1,
+      "20180131": 5,
+      "20180214": 1,
+      "20180222": 1,
+      "20180223": 1
+    }
+  }
 }
 ```
