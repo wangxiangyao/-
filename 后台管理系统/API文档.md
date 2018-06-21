@@ -39,7 +39,7 @@
 	* [商品类别](#商品类别 )
 		* [查询所有商品类别](#查询所有商品类别 )
 	* [报表](#报表)
-		* [市场来源渠道报表](#市场来源渠道报表 )
+		* [市场来源渠道报表（待修改）](#市场来源渠道报表待修改 )
 		
   
 ## 更新说明
@@ -155,6 +155,7 @@
 |  TWO_STAR     |   双星卡 | 
 |  FOUR_STAR      |    双星卡 | 
 |  SIX_STAR     |   六星卡|
+|  STAR_GIFT_CARD|   星礼卡|
   
 - <span id="origin(包期卡来源)">origin(包期卡来源)</span>
   
@@ -1264,15 +1265,17 @@
 ## 报表
   
   
-### 市场来源渠道报表
+### 市场来源渠道报表待修改
 - 请求方法： `GET`
 - URL：`/marketingReport`
 - query参数：
 
 | 参数名 | 类型 | 是否必须 | 描述 | 示例 |
 | ---    | --- | --- | --- | --- |
-| shareOriginChannel| String | 是 | 分享来源渠道 | ANGELA_MIKI |
+| shareOriginChannel| String | 否 | 分享来源渠道 | ANGELA_MIKI |
 | timeRange| String | 是 | 1513008000000,1544630400000 | 统计时间区间 |
+| marketingPeriodCardCategoryType| Enum-String | 否 | 包期卡类别 | [详情见枚举的说明](#marketingPeriodCardCategoryType(包期卡类别))|
+| invitationCode| String | 否 | 1111 | 邀请码 |
 
 -  返回示例：
 ```javascript
@@ -1318,3 +1321,53 @@
   }
 }
 ```
+
+## 星礼卡
+  
+  
+### 星礼卡批量查询
+- 请求方法： `GET`
+- URL：`/findStarGiftCardPage`
+- query参数：
+
+| 参数名 | 类型 | 是否必须 | 描述 | 示例 |
+| ---    | --- | --- | --- | --- |
+| page | String | 是 | 请求页码 | 10 请求第10页 |
+| limit | String | 是 | 每页数据量 | 10 |
+| periodCardNo| String | 否 | 星礼卡编号 | 10230001 |
+| periodCardCountersign| String | 否 | 星礼卡口令 | 8888|
+| createDatetime| DateTime-number| 否 | 星礼卡创建时间 | 0,15379687546|
+| startDateTime| DateTime-number| 否 | 星礼卡有效期开始时间 | 0,15379687546|
+| endDateTime| DateTime-number| 否 | 星礼卡有效期结束时间 | 0,15379687546|
+| activateUser| String| 否 | 激活用户 | 安姐|
+| activateFlag| Enum-String| 否 | 激活状态 |  [详情见枚举的说明](#activeFlag(有效类型))|
+| receiveUserId| String| 否 | 领取人id |  347|
+| receiveFlag| Enum-String| 否 | 领取状态 |  [详情见枚举的说明](#activeFlag(有效类型))|
+
+- 返回示例：
+```javascript
+{
+  "code": 200,
+  "message": "OK",
+  "data": [
+	"count": Number 总数据量
+    "list": [
+      {
+        "marketingPeriodCardCategoryName": String 卡片类型中文,
+        "marketingPeriodCardCategoryType": Enum-String 卡片类型枚举,
+     
+        "createDatetime": Date-Number 创建时间时间戳,
+        "marketingPeriodCardCategoryId": Number 卡片类型id,
+        "receiveUserId": Number 领取人id,
+        "activateUser": String 激活人姓名,
+        "receiveFlag": Enum-String 领取状态,
+        "periodCardNo": String 卡号,
+        "id": Number 卡id,
+        "periodCardCountersign": String 卡号口令,
+        "activateFlag": Enum-String 激活状态,
+
+      }
+	]
+  }
+```
+  
